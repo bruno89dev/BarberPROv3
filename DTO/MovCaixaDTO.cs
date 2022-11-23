@@ -19,5 +19,6 @@ namespace BarberPROv3.DTO {
         [Column(TypeName = "decimal(10,2)")]
         public decimal ValorMovimentacao { get; set; }
         public TipoMovCaixa TipoMovimentacao { get; set; }
+
     }
 }

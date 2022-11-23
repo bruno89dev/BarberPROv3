@@ -19,5 +19,15 @@ namespace BarberPROv3.Models {
         [Column(TypeName = "decimal(10,2)")]
         public decimal ValorMovimentacao { get; set; }
         public TipoMovCaixa TipoMovimentacao { get; set; }
+
+        public decimal Movimentar(decimal valor) {
+            decimal saldo = 0;
+            if (TipoMovimentacao == TipoMovCaixa.Depósito) {
+                saldo += valor;
+            } else {
+                saldo -= valor;
+            }
+            return saldo;
+        }
     }
 }

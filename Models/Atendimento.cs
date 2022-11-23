@@ -1,10 +1,11 @@
-﻿using BarberPROv3.Enums;
-using System;
-using System.Collections.Generic;
+﻿using BarberPROv3.Data;
+using BarberPROv3.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace BarberPROv3.Models {
     public class Atendimento {
+
         public int Id { get; set; }
 
         [Required]
@@ -22,5 +23,6 @@ namespace BarberPROv3.Models {
         [Required(ErrorMessage = "O caixa deve ser informado")]
         public Caixa CaixaDestino { get; set; }
         public bool RegistroAtivo { get; set; }
+
     }
 }

@@ -29,8 +29,8 @@ namespace BarberPROv3.Services {
             return _context.Produtos.FirstOrDefault(x => x.Id == id);
         }
 
-        public Produto GetByName(string nome) {
-            return _context.Produtos.Where(x => x.Nome.Contains(nome)).FirstOrDefault();
+        public List<Produto> GetByName(string nome) {
+            return _context.Produtos.Where(x => x.Nome.Contains(nome)).ToList();
         }
 
         public List<Produto> GetByCategoria(Categoria categoria) {

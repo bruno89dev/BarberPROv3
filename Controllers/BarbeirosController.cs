@@ -44,7 +44,7 @@ namespace BarberPROv3.Controllers {
         [HttpGet("Nome")]
         public IActionResult BuscarPorNome(string nome) {
             var barbeiroPorNome = _barbeiroService.GetByName(nome);
-            if (barbeiroPorNome == null)
+            if (barbeiroPorNome.Count == 0)
                 return NotFound("Nenhum barbeiro encontrado");
             return Ok(barbeiroPorNome);
         }

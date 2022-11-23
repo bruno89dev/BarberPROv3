@@ -28,8 +28,8 @@ namespace BarberPROv3.Services {
             return _context.Clientes.FirstOrDefault(x => x.Id == id);
         }
 
-        public Cliente GetByName(string nome) {
-            return _context.Clientes.Where(x => x.Nome.Contains(nome)).FirstOrDefault();
+        public List<Cliente> GetByName(string nome) {
+            return _context.Clientes.Where(x => x.Nome.Contains(nome)).ToList();
         }
 
         public Cliente GetByCpf(string cpf) {

@@ -43,7 +43,7 @@ namespace BarberPROv3.Controllers {
         [HttpGet("Nome")]
         public IActionResult BuscarPorNome(string nome) {
             var produtoPorNome = _produtoService.GetByName(nome);
-            if (produtoPorNome == null)
+            if (produtoPorNome.Count == 0)
                 return NotFound("Nenhum produto encontrado");
             return Ok(produtoPorNome);
         }
