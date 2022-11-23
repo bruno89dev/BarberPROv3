@@ -7,6 +7,7 @@ namespace BarberPROv3.Mapping {
         public ClassToDTOMapping() {
             CreateMap<Atendimento, AtendimentoDTO>().ReverseMap();
             CreateMap<AtendimentoItem, AtendimentoItemDTO>().ReverseMap();
+            CreateMap<Atendimento, CriarAtendimentoDTO>().ReverseMap();
             CreateMap<Barbeiro, BarbeiroDTO>().ReverseMap();
             CreateMap<Caixa, CaixaDTO>().ReverseMap();
             CreateMap<Cliente, ClienteDTO>().ReverseMap();

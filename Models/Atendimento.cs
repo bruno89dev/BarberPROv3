@@ -1,28 +1,35 @@
-﻿using BarberPROv3.Data;
-using BarberPROv3.Enums;
+﻿using BarberPROv3.Enums;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BarberPROv3.Models {
     public class Atendimento {
-
         public int Id { get; set; }
-
-        [Required]
+        public int BarbeiroId { get; set; }
         public Barbeiro Barbeiro { get; set; }
-
-        [Required]
+        public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }
 
-        [Required(ErrorMessage = "A data deve ser informada")]
         [DisplayFormat(DataFormatString = "{0:DD.MM.YYYY}")]
         public DateTime Data { get; set; }
+        public ICollection<AtendimentoItem> ItensVendidos { get; set; } = new List<AtendimentoItem>();
         public FormaPagamento FormaDePagamento { get; set; }
-        public List<AtendimentoItem> ItensVendidos { get; set; }
-        
-        [Required(ErrorMessage = "O caixa deve ser informado")]
+        public int CaixaId { get; set; }
         public Caixa CaixaDestino { get; set; }
         public bool RegistroAtivo { get; set; }
+        
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal TotalGeral { get; set; }
+
+        public void CalcularTotalGeral()
+        {
+            TotalGeral = 0;
+            foreach(var item in ItensVendidos)
+            {
+                TotalGeral += item.ValorTotal;
+            }
+        }
 
     }
 }

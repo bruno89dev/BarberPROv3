@@ -4,6 +4,7 @@ using BarberPROv3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberPROv3.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221123162043_SomeModelChanges")]
+    partial class SomeModelChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace BarberPROv3.Migrations
                     b.Property<int>("BarbeiroId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CaixaId")
+                    b.Property<int?>("CaixaDestinoId")
                         .HasColumnType("int");
 
                     b.Property<int>("ClienteId")
@@ -49,13 +52,13 @@ namespace BarberPROv3.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("TotalGeral")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BarbeiroId");
 
-                    b.HasIndex("CaixaId");
+                    b.HasIndex("CaixaDestinoId");
 
                     b.HasIndex("ClienteId");
 
@@ -70,7 +73,7 @@ namespace BarberPROv3.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AtendimentoId")
+                    b.Property<int>("AtendimentoId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProdutoId")
@@ -254,9 +257,7 @@ namespace BarberPROv3.Migrations
 
                     b.HasOne("BarberPROv3.Models.Caixa", "CaixaDestino")
                         .WithMany()
-                        .HasForeignKey("CaixaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CaixaDestinoId");
 
                     b.HasOne("BarberPROv3.Models.Cliente", "Cliente")
                         .WithMany()
@@ -275,7 +276,9 @@ namespace BarberPROv3.Migrations
                 {
                     b.HasOne("BarberPROv3.Models.Atendimento", null)
                         .WithMany("ItensVendidos")
-                        .HasForeignKey("AtendimentoId");
+                        .HasForeignKey("AtendimentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("BarberPROv3.Models.Produto", "Produto")
                         .WithMany()

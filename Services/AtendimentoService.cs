@@ -19,7 +19,7 @@ namespace BarberPROv3.Services {
         }
 
         public List<Atendimento> GetAll() {
-            return _context.Atendimentos.Include(x => x.Barbeiro).Include(x => x.Cliente).ToList();
+            return _context.Atendimentos.Include(x => x.Barbeiro).Include(x => x.Cliente).Include(x => x.CaixaDestino).ToList();
         }
 
         public List<Atendimento> GetActives() {
@@ -46,12 +46,10 @@ namespace BarberPROv3.Services {
             return _context.Atendimentos.Include(x => x.Barbeiro).Include(x => x.Cliente).Where(x => x.FormaDePagamento == formaPagamento).ToList();
         }
 
-        public Atendimento Create(AtendimentoDTO atendimentoDTO, int barbeiroId, int clienteId) {
-            var novoAtendimento = _mapper.Map<Atendimento>(atendimentoDTO);
-            novoAtendimento.Barbeiro = _context.Barbeiros.Where(x => x.Id == barbeiroId).FirstOrDefault();
-            novoAtendimento.Cliente = _context.Clientes.Where(x => x.Id == clienteId).FirstOrDefault();
-            //novoAtendimento.ItensVendidos = _atendimentoItemService.AddItem(produtoId);
-            //novoAtendimento.CaixaDestino = novoAtendimento.DirecionarPagamento();
+        public Atendimento Create(CriarAtendimentoDTO criarAtendimentoDTO) {
+            var novoAtendimento = _mapper.Map<Atendimento>(criarAtendimentoDTO);
+            novoAtendimento.ItensVendidos = _atendimentoItemService.AdicionarItens(criarAtendimentoDTO.ItensVendidos);
+            novoAtendimento.CalcularTotalGeral();
             _context.Atendimentos.Add(novoAtendimento);
             _context.SaveChanges();
             return novoAtendimento;

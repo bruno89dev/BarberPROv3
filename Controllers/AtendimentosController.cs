@@ -72,8 +72,8 @@ namespace BarberPROv3.Controllers {
         }
 
         [HttpPost("Novo")]
-        public IActionResult Cadastrar(AtendimentoDTO atendimentoDTO, int barbeiroId, int clienteId) {
-            _atendimentoService.Create(atendimentoDTO, barbeiroId, clienteId);
+        public IActionResult Cadastrar(CriarAtendimentoDTO criarAtendimentoDTO) {
+            _atendimentoService.Create(criarAtendimentoDTO);
             if (ModelState.IsValid) {
                 Response.StatusCode = 201;
                 return Ok("Atendimento adicionado com sucesso!");

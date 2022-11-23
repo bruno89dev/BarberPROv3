@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BarberPROv3.Models {
     public class AtendimentoItem {
         public int Id { get; set; }
-        
-        [Required]
+        public int ProdutoId { get; set; }
         public Produto Produto { get; set; }
-        public int AtendimentoId { get; set; }
         public int Quantidade { get; set; }
 
         [DataType(DataType.Currency)]
